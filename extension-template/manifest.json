@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "WebMCP Extend Tools",
+  "description": "Auto-generated WebMCP tools by webmcp-extend. Go native with webmcp-kit →",
+  "version": "0.1.0",
+  "permissions": ["activeTab"],
+  "background": {
+    "service_worker": "dist/background.js",
+    "type": "module"
+  },
+  "content_scripts": [],
+  "icons": {},
+  "homepage_url": "https://github.com/nicholasgriffintn/webmcp-kit"
+}

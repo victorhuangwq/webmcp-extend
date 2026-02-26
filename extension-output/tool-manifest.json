@@ -1,0 +1,26 @@
+{
+  "patterns": {
+    "https://www.dominos.com/*": [
+      "tools/getMenuCategories.ts",
+      "tools/navigateToMenuCategory.ts",
+      "tools/chooseOrderType.ts",
+      "tools/startOrder.ts",
+      "tools/getPageContent.ts",
+      "tools/addDeal.ts",
+      "tools/viewCart.ts",
+      "tools/seeLocalDeals.ts"
+    ]
+  },
+  "toolNames": [
+    "getMenuCategories",
+    "navigateToMenuCategory",
+    "chooseOrderType",
+    "startOrder",
+    "getPageContent",
+    "addDeal",
+    "viewCart",
+    "seeLocalDeals"
+  ],
+  "extensionName": "Dominos WebMCP",
+  "version": "0.1.0"
+}

@@ -1,0 +1,212 @@
+[
+  {
+    "name": "getMenuCategories",
+    "description": "Get the list of available menu categories (e.g., Build Your Own, Specialty Pizzas, Breads, Chicken, Desserts, Pastas, Sandwiches, Salads, Drinks, Extras)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "actionType": "dom-action",
+    "actionDetails": {
+      "steps": [
+        {
+          "action": "read",
+          "selector": "a[href^='/menu/']",
+          "readAttribute": "textContent",
+          "multiple": true
+        }
+      ]
+    },
+    "annotations": {
+      "readOnlyHint": true
+    },
+    "urlPattern": "https://www.dominos.com/*"
+  },
+  {
+    "name": "navigateToMenuCategory",
+    "description": "Navigate to a specific menu category page to browse items (e.g., build-your-own, specialty, bread, tots, wings, dessert, pasta, sandwich, g-salad, drinks, sides)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string",
+          "description": "Menu category slug",
+          "enum": ["build-your-own", "specialty", "bread", "tots", "wings", "dessert", "pasta", "sandwich", "g-salad", "drinks", "sides"]
+        }
+      },
+      "required": ["category"]
+    },
+    "actionType": "dom-action",
+    "actionDetails": {
+      "steps": [
+        {
+          "action": "click",
+          "selector": "a[href='/menu/${category}']",
+          "inputProperty": "category",
+          "selectorTemplate": true
+        }
+      ]
+    },
+    "annotations": {
+      "readOnlyHint": false
+    },
+    "urlPattern": "https://www.dominos.com/*"
+  },
+  {
+    "name": "chooseOrderType",
+    "description": "Select delivery or carryout order type to begin an order",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "orderType": {
+          "type": "string",
+          "description": "Whether to order for delivery or carryout",
+          "enum": ["delivery", "carryout"]
+        }
+      },
+      "required": ["orderType"]
+    },
+    "actionType": "dom-action",
+    "actionDetails": {
+      "steps": [
+        {
+          "action": "click",
+          "selector": "a[href='/?type=order_${orderType}']",
+          "inputProperty": "orderType",
+          "selectorTemplate": true
+        }
+      ]
+    },
+    "annotations": {
+      "readOnlyHint": false
+    },
+    "urlPattern": "https://www.dominos.com/*"
+  },
+  {
+    "name": "startOrder",
+    "description": "Click the 'Order Now' button to begin the ordering flow",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "actionType": "dom-action",
+    "actionDetails": {
+      "steps": [
+        {
+          "action": "click",
+          "selector": "button[name='Blue Nav - Order Now']"
+        }
+      ]
+    },
+    "annotations": {
+      "readOnlyHint": false
+    },
+    "urlPattern": "https://www.dominos.com/*"
+  },
+  {
+    "name": "getPageContent",
+    "description": "Read the main content of the current page, useful for reading menu items, pizza options, and prices after navigating to a menu category",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "actionType": "dom-action",
+    "actionDetails": {
+      "steps": [
+        {
+          "action": "read",
+          "selector": "main, #content, [role='main'], .page-content, body",
+          "readAttribute": "textContent",
+          "delay": 2000
+        }
+      ]
+    },
+    "annotations": {
+      "readOnlyHint": true
+    },
+    "urlPattern": "https://www.dominos.com/*"
+  },
+  {
+    "name": "addDeal",
+    "description": "Add a promotional deal to the cart (e.g., MixAndMatch, BestDealEver, WeekLongCarryout, PerfectCombo)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "dealId": {
+          "type": "string",
+          "description": "The deal identifier",
+          "enum": ["MixAndMatch", "BestDealEver", "WeekLongCarryout", "PerfectCombo"]
+        }
+      },
+      "required": ["dealId"]
+    },
+    "actionType": "dom-action",
+    "actionDetails": {
+      "steps": [
+        {
+          "action": "click",
+          "selector": "#tile-button-${dealId}",
+          "inputProperty": "dealId",
+          "selectorTemplate": true
+        }
+      ]
+    },
+    "annotations": {
+      "readOnlyHint": false
+    },
+    "urlPattern": "https://www.dominos.com/*"
+  },
+  {
+    "name": "viewCart",
+    "description": "Open the shopping cart to view current items",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "actionType": "dom-action",
+    "actionDetails": {
+      "steps": [
+        {
+          "action": "click",
+          "selector": "button[aria-label^='View cart']"
+        },
+        {
+          "action": "read",
+          "selector": "[role='dialog'], .cart-panel, .cart-content, main",
+          "readAttribute": "textContent",
+          "delay": 1500
+        }
+      ]
+    },
+    "annotations": {
+      "readOnlyHint": true
+    },
+    "urlPattern": "https://www.dominos.com/*"
+  },
+  {
+    "name": "seeLocalDeals",
+    "description": "View local deals available at the nearest store",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "actionType": "dom-action",
+    "actionDetails": {
+      "steps": [
+        {
+          "action": "click",
+          "selector": "#tile-button-LocalDeals"
+        }
+      ]
+    },
+    "annotations": {
+      "readOnlyHint": true
+    },
+    "urlPattern": "https://www.dominos.com/*"
+  }
+]

@@ -1,0 +1,148 @@
+[
+  {
+    "name": "getMenu",
+    "description": "Get the pizza menu with all available pizzas, prices, and toppings",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "actionType": "js-call",
+    "actionDetails": {
+      "functionPath": "window.getMenu",
+      "argMapping": [],
+      "returnType": "object"
+    },
+    "annotations": {
+      "readOnlyHint": true
+    },
+    "urlPattern": "http://localhost:3000/*"
+  },
+  {
+    "name": "addToCart",
+    "description": "Add a pizza to the shopping cart",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "pizzaId": {
+          "type": "string",
+          "description": "The pizza ID from the menu (e.g., 'margherita', 'pepperoni')"
+        },
+        "quantity": {
+          "type": "number",
+          "description": "Number of pizzas to add (1-10)",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "size": {
+          "type": "string",
+          "description": "Pizza size",
+          "enum": ["small", "medium", "large"]
+        }
+      },
+      "required": ["pizzaId", "quantity"]
+    },
+    "actionType": "js-call",
+    "actionDetails": {
+      "functionPath": "window.addToCart",
+      "argMapping": ["pizzaId", "quantity", "size"],
+      "returnType": "object"
+    },
+    "annotations": {
+      "readOnlyHint": false
+    },
+    "urlPattern": "http://localhost:3000/*"
+  },
+  {
+    "name": "getCart",
+    "description": "Get current cart contents including items, quantities, and total price",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "actionType": "js-call",
+    "actionDetails": {
+      "functionPath": "window.cart.getItems",
+      "argMapping": [],
+      "returnType": "object"
+    },
+    "annotations": {
+      "readOnlyHint": true
+    },
+    "urlPattern": "http://localhost:3000/*"
+  },
+  {
+    "name": "clearCart",
+    "description": "Remove all items from the shopping cart",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "actionType": "js-call",
+    "actionDetails": {
+      "functionPath": "window.cart.clear",
+      "argMapping": [],
+      "returnType": "void"
+    },
+    "annotations": {
+      "destructiveHint": true
+    },
+    "urlPattern": "http://localhost:3000/*"
+  },
+  {
+    "name": "checkout",
+    "description": "Complete the purchase and place the order",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Customer name for the order"
+        },
+        "address": {
+          "type": "string",
+          "description": "Delivery address"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Contact phone number"
+        }
+      },
+      "required": ["name", "address"]
+    },
+    "actionType": "dom-action",
+    "actionDetails": {
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "#customer-name",
+          "inputProperty": "name",
+          "description": "Enter customer name"
+        },
+        {
+          "action": "fill",
+          "selector": "#delivery-address",
+          "inputProperty": "address",
+          "description": "Enter delivery address"
+        },
+        {
+          "action": "fill",
+          "selector": "#phone-number",
+          "inputProperty": "phone",
+          "description": "Enter phone number"
+        },
+        {
+          "action": "click",
+          "selector": "#checkout-btn",
+          "description": "Submit the order"
+        }
+      ]
+    },
+    "annotations": {
+      "confirmationHint": true
+    },
+    "urlPattern": "http://localhost:3000/*"
+  }
+]
