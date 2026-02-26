@@ -2,9 +2,10 @@
 
 **Autopilot WebMCP tools onto any website. Then build it for real.**
 
-`webmcp-extend` generates [WebMCP](https://victorhuangwq.github.io/webmcp-kit/) tools for _any_ website automatically. Point it at a URL, describe what an AI agent should do, and get a ready-to-load Chrome Extension that exposes those tools via `navigator.modelContext`. When you're ready to go native, export to clean [webmcp-kit](https://github.com/victorhuangwq/webmcp-kit) starter code.
+`webmcp-extend` generates [WebMCP](https://victorhuangwq.github.io/webmcp-kit/) tools for _any_ website automatically. Point it at a URL, describe what an AI agent should do, and get a ready-to-load Chrome Extension that exposes those tools via `navigator.modelContext`. 
 
-> **The thesis:** once developers see AI agent tools working on their own site in 5 minutes, they'll be motivated to implement WebMCP natively. **extend** is the gateway. **kit** is the destination.
+When you're ready to go native, use [webmcp-kit](https://github.com/victorhuangwq/webmcp-kit) to start.
+
 
 ## Quick Start
 
