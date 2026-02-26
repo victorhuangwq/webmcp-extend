@@ -255,7 +255,7 @@ program
       console.error("   1. Review the generated files and replace TODO comments with your app's logic");
       console.error("   2. Install webmcp-kit: npm install webmcp-kit zod");
       console.error("   3. Import and register tools in your app");
-      console.error("   4. See https://github.com/nicholasgriffintn/webmcp-kit for docs");
+      console.error("   4. See https://github.com/victorhuangwq/webmcp-kit for docs");
 
     } catch (error) {
       console.error(`❌ Export failed: ${error instanceof Error ? error.message : String(error)}`);

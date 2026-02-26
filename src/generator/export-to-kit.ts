@@ -33,7 +33,7 @@ function transformToKitCode(content: string): string {
  * This file was exported from an auto-generated shim tool.
  * Replace the TODO comments with your own application logic.
  *
- * Docs: https://github.com/nicholasgriffintn/webmcp-kit
+ * Docs: https://github.com/victorhuangwq/webmcp-kit
  */
 ${result}`;
 

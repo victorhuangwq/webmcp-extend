@@ -2,7 +2,7 @@
 
 > Auto-generating WebMCP tools for the `webmcp-kit` pizza-shop example app.
 
-This directory demonstrates running `webmcp-extend` against the [pizza-shop example](https://github.com/nicholasgriffintn/webmcp-kit/tree/main/examples/pizza-shop) from `webmcp-kit` — the same app that has manually-written tools using `defineTool()`.
+This directory demonstrates running `webmcp-extend` against the [pizza-shop example](https://github.com/victorhuangwq/webmcp-kit/tree/main/examples/pizza-shop) from `webmcp-kit` — the same app that has manually-written tools using `defineTool()`.
 
 ## What This Proves
 
@@ -22,7 +22,7 @@ The auto-generated tools should closely match the manually-written ones:
 
 1. Clone and run the pizza-shop example:
    ```bash
-   git clone https://github.com/nicholasgriffintn/webmcp-kit
+   git clone https://github.com/victorhuangwq/webmcp-kit
    cd webmcp-kit/examples/pizza-shop
    npm install
    npm run dev  # Starts on http://localhost:3000

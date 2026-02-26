@@ -204,7 +204,7 @@ After successful testing, present the conversion path:
    This creates clean starter code with TODO comments where you need
    to wire in your app's real state and APIs.
 
-📖 **Learn webmcp-kit** — https://github.com/nicholasgriffintn/webmcp-kit
+📖 **Learn webmcp-kit** — https://github.com/victorhuangwq/webmcp-kit
    Native tools are faster, more reliable, and don't need an extension.
 ```
 
