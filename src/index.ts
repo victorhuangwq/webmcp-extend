@@ -26,6 +26,17 @@ export {
 } from "./generator/generate-extension.js";
 export { exportToKit } from "./generator/export-to-kit.js";
 
+// Session
+export {
+  sessionStart,
+  sessionStep,
+  sessionScreenshot,
+  sessionClose,
+  type SessionStartOptions,
+  type SessionStepOptions,
+} from "./session/session.js";
+export { convertSessionToolsToProposals } from "./session/convert.js";
+
 // Types
 export type {
   // Analysis types
@@ -52,3 +63,11 @@ export type {
   ToolProposal,
   ToolProposalAnnotations,
 } from "./analysis/types.js";
+
+export type {
+  // Session types
+  SessionState,
+  ActionLogEntry,
+  ToolFromActions,
+  ToolActionStep,
+} from "./session/types.js";

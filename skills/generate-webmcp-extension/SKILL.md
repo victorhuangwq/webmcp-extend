@@ -210,6 +210,117 @@ After successful testing, present the conversion path:
 
 ---
 
+## Interactive Session Mode (Agent-Driven Exploration)
+
+An alternative workflow where you, the agent, drive a browser interactively to accomplish the user's goal. Instead of analyzing static scan data, you navigate the site yourself — every action you take becomes a tool definition.
+
+### Why use this mode?
+- **Multi-page flows**: Automatically discover tools across all pages in a user journey
+- **Verified selectors**: Every selector was actually used and confirmed working
+- **Goal-driven**: You keep going until the end goal is achieved, capturing all tools along the way
+
+### Step 1 — Gather the Goal
+
+Ask the user for:
+1. **Target URL** — The website
+2. **End goal** — What the full user journey should accomplish (e.g., "Order a pepperoni pizza with delivery")
+
+### Step 2 — Start a Session
+
+```bash
+npx webmcp-extend session start "https://pizza-shop.example.com" \
+  --goal "Order a pepperoni pizza" \
+  --session-dir ./session
+```
+
+This opens a browser and captures the initial screenshot. View it to see the page.
+
+### Step 3 — Explore Toward the Goal
+
+Look at the screenshot. Decide what action to take next. Execute it and tag it with a tool name:
+
+```bash
+# Navigate to the menu
+npx webmcp-extend session step \
+  --action click --selector "#menu-tab" \
+  --tool-name "navigateToMenu" \
+  --session-dir ./session
+
+# View the updated screenshot to see what happened
+# Then continue...
+
+# Add a pizza to cart
+npx webmcp-extend session step \
+  --action click --selector ".pizza-card[data-id='pepperoni'] .add-btn" \
+  --tool-name "addToCart" \
+  --session-dir ./session
+
+# Fill checkout form (same tool-name groups steps together)
+npx webmcp-extend session step \
+  --action fill --selector "#name" --value "John Doe" \
+  --tool-name "fillCheckoutForm" \
+  --session-dir ./session
+
+npx webmcp-extend session step \
+  --action fill --selector "#email" --value "john@example.com" \
+  --tool-name "fillCheckoutForm" \
+  --session-dir ./session
+
+# Submit the order
+npx webmcp-extend session step \
+  --action click --selector "#submit-order" \
+  --tool-name "submitOrder" \
+  --session-dir ./session
+```
+
+**Key rules:**
+- After each step, view `./session/screenshot-latest.png` to see the result
+- Tag each action with `--tool-name` to assign it to a tool
+- Steps with the **same tool-name** are grouped into a multi-step tool
+- Keep going until you reach the end goal
+- Use `session screenshot` if you just want to observe without acting
+
+### Step 4 — Close and Generate Tools
+
+```bash
+npx webmcp-extend session close --session-dir ./session
+```
+
+This outputs `./session/tools.json` — tool definitions derived from your recorded actions.
+
+### Step 5 — Review and Generate Extension
+
+Read `tools.json` and present the discovered tools to the user:
+
+```
+📋 Discovered Tools for pizza-shop.example.com:
+
+| # | Tool              | Steps | Description                    |
+|---|-------------------|-------|--------------------------------|
+| 1 | navigateToMenu    | 1     | Click on the menu tab          |
+| 2 | addToCart          | 1     | Add pizza to cart               |
+| 3 | fillCheckoutForm  | 2     | Fill name and email fields      |
+| 4 | submitOrder        | 1     | Submit the order                |
+
+Would you like to modify any tools?
+```
+
+Then generate the extension using the tools (convert `tools.json` to proposals format if needed) and follow Steps 5–8 from the standard workflow above.
+
+### Available Actions
+
+| Action | Description | Required Options |
+|--------|-------------|------------------|
+| `click` | Click an element | `--selector` |
+| `fill` | Type into an input | `--selector`, `--value` |
+| `select` | Choose a dropdown option | `--selector`, `--value` |
+| `hover` | Hover over an element | `--selector` |
+| `scroll` | Scroll element into view | `--selector` (optional) |
+| `wait` | Wait for element or time | `--selector` or `--value` (ms) |
+| `navigate` | Go to a URL | `--url` |
+
+---
+
 ## Playbooks
 
 ### Adding Tools to an Existing Extension
@@ -259,3 +370,7 @@ Then for each exported file:
 | `my-extension/manifest.json` | Chrome Extension manifest |
 | `my-extension/tool-manifest.json` | URL pattern → tool mapping |
 | `kit-starter/` | Exported webmcp-kit starter code |
+| `session/session.json` | Active session state (interactive mode) |
+| `session/screenshot-latest.png` | Current page screenshot (interactive mode) |
+| `session/action-log.json` | Recorded actions (interactive mode) |
+| `session/tools.json` | Tools generated from session actions |
